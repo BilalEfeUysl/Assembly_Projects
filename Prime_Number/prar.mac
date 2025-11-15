@@ -1,0 +1,38 @@
+
+PRINTARRAY MACRO
+    LOCAL PRINT_LOOP
+    LOCAL PRINT_EXIT 
+    
+    PUSH AX
+    PUSH CX
+    PUSH DX
+    PUSH SI
+    PUSH BX
+
+    MOV SI, 0     ; Dizi indeksi (SI) sifirla     
+
+    CMP CX, 0    ; Eleman sayisi (CX) 0 mi?
+    JE PRINT_EXIT   ; Eger 0 ise hicbir sey basma, cik
+
+PRINT_LOOP:
+    ; Diziden [BX+SI] adresindeki elemani AX'e al
+    MOV AX, WORD PTR [BX+SI]
+    
+    CALL PUTN         ; Sayiyi (AX) ekrana bas
+    
+    ; --- Sayilar arasina bir bosluk koy ---
+    PUSH AX     ; AX'i (basilan sayi) koru
+    MOV AX, OFFSET MSG_SPACE        ; Bosluk karakterinin adresini al
+    CALL PUT_STR    ; Boslugu bas
+    POP AX          ; AX'i geri yukle
+
+    ADD SI, 2           ; Sonraki elemana gec (indeksi 2 arttir)
+LOOP PRINT_LOOP             ; CX sifir olana kadar don
+
+PRINT_EXIT:
+    POP BX
+    POP SI
+    POP DX
+    POP CX
+    POP AX
+ENDM

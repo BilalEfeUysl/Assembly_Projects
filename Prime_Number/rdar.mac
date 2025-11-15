@@ -1,0 +1,27 @@
+
+READARRAY MACRO
+    LOCAL READ_LOOP
+    PUSH AX
+    PUSH CX
+    PUSH DX
+    PUSH SI
+    PUSH BX
+
+    MOV SI, 0     ; Dizi indeksi (SI) sifirla    
+    
+    READ_LOOP:
+        CALL GETN        ; Kullanicidan 16-bit'lik sayi al (AX'e gelir)
+
+        ; Alinan sayiyi (AX) dizinin [BX+SI] adresine yaz
+        ; BX = dizinin baslangic adresi (macro cagrilmadan ayarlanmali)
+        MOV WORD PTR [BX+SI], AX
+        
+        ADD SI, 2     ; Indeksi 2 arttir (WORD = 2 byte)    
+    LOOP READ_LOOP   ; CX sifir olana kadar don (CX = eleman sayisi)
+
+    POP BX
+    POP SI
+    POP DX
+    POP CX
+    POP AX
+ENDM
