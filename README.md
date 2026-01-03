@@ -1,1 +1,1 @@
--Projeleri çalıştırmak için dosbox üzerinden .exe dosyasını çalıştırabilirsiniz.
+
